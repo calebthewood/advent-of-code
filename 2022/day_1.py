@@ -1,5 +1,5 @@
 # Part 1 - Find the Elf Carrying the most calories
-file = open("data.txt", "r")
+file = open("day_1_data.txt", "r")
 sum = 0
 elves = []
 max_cal = 0
