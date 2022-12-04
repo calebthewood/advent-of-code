@@ -4,7 +4,7 @@
 
 # sum the priorities of letters that appear 2x in each string?
 
-letters = "_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+LETTERS = "_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 def file_to_list():
     file = open("day_3_data.txt", "r")
@@ -33,11 +33,13 @@ def sum_priorities():
         print("p1_len ", len(p1_list))
         print("p2_len ", len(p2_list))
         if (len(item) > 0):
-            priority_sum += int(letters.index(item[0]))
+            priority_sum += int(LETTERS.index(item[0]))
 
     return priority_sum
 
 def group_priorities():
+    """Part 2: Finds single common char for every 3 elements,
+    and returns the sum of their 'priority'"""
     priority_sum = 0
     size = int(len(rucksacks)) - 2
     i = 0
@@ -48,17 +50,10 @@ def group_priorities():
         elf_one = set([*rucksacks[i]])
         elf_two = set([*rucksacks[j]])
         elf_thr = set([*rucksacks[k]])
-
-        step_1 = elf_one.intersection(elf_two)
-        step_2 = elf_two.intersection(elf_thr)
-        step_3 = list(step_1.intersection(step_2))
-
-        print("Badge: ", step_3)
-
-        if (len(step_3) > 0):
-            badge = step_3[0]
-            priority_sum += int(letters.index(badge[0]))
+        badge = list(elf_one.intersection(elf_two,elf_thr))[0]
+        priority_sum += int(LETTERS.index(badge))
         i += 3
+
     return priority_sum
 
 print(group_priorities())
