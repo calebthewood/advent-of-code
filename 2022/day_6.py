@@ -16,8 +16,19 @@ def part_one(text):
                     if d not in [a,b,c]:
                         return(i)
 
+def part_two(text):
+    window = [text[i] for i in range(0,14)]
+    end = int(len(text))
+    for i in range(14, end):
+        if len(window) == len(set(window)): return i
+        window.insert(0,text[i])
+        window.pop()
+    return "not found"
+
+
 with open("day_6_data.txt", "r") as f:
     text = f.readline()
     print(text)
     print("len: ",len(text))
-    print("part 1 answer: ", part_one(text))
+    # print("part 1 answer: ", part_one(text))
+    print("part 2 answer: ", part_two(text))

@@ -7,10 +7,17 @@ This repo houses my solutions for the [Advent of Code](https://adventofcode.com/
 - [x] Day 1: Calorie Counting
 - [x] Day 2: Rock Paper Scissors
 - [x] Day 3: Rucksack Reorganization
-- [ ] Day 4: ???
-- [ ] Day 5: ???
-- [ ] Day 6: ???
+- [x] Day 4: Camp Cleanup
+- [x] Day 5: Supply Stacks
+- [x] Day 6: Tuning Trouble
+- [ ] Day 7: ???
+- [ ] Day 8: ???
+- [ ] Day 9: ???
+- [ ] Day 10: ???
+- [ ] Day 11: ???
+- [ ] Day 12: ???
+- [ ] Day 13: ???
 ...
 
 ## Solutions?
-Curiious about one of my solutions? Come find me on [twitter](https://twitter.com/CalebtheWood) or shoot me an [email](calebwood.cs@gmail.com)!
+Curious about one of my solutions? Come find me on [twitter](https://twitter.com/CalebtheWood) or shoot me an [email](calebwood.cs@gmail.com)!
