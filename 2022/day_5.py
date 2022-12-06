@@ -13,6 +13,7 @@ crates = {
     "8": [],
     "9": []
 }
+
 num = 1
 for i in range(0,8):
     line = data[i]
@@ -34,18 +35,15 @@ print("Starting From:   ")
 for key in crates:
     print(key,":",crates[key])
 
-
 def part_one():
     end = len(data)
     for i in range(10, end):
         [x, move, y, fro, z ,to] = data[i].split(" ")
-        # print("AA", data[i].split(" "))
         count = int(move)
         while count > 0:
             popped = crates[fro].pop()
             crates[to].append(popped)
             count -= 1
-
 
 def part_two():
     end = len(data)
@@ -64,10 +62,8 @@ def part_two():
             popped = temp.pop()
             crates[to] += popped
 
-
 part_two()
 
 print("Final Result:   ")
 for key in crates:
     print(key,":",crates[key])
-
