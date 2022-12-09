@@ -11,7 +11,7 @@ This repo houses my solutions for the [Advent of Code](https://adventofcode.com/
 - [x] Day 5: Supply Stacks
 - [x] Day 6: Tuning Trouble
 - [x] Day 7: No Space Left On Device
-- [ ] Day 8: ???
+- [x] Day 8: Treetop Tree House
 - [ ] Day 9: ???
 - [ ] Day 10: ???
 - [ ] Day 11: ???
