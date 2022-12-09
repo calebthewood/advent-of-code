@@ -25,10 +25,6 @@ def part_two(text):
         window.pop()
     return "not found"
 
-
 with open("day_6_data.txt", "r") as f:
     text = f.readline()
-    print(text)
-    print("len: ",len(text))
-    # print("part 1 answer: ", part_one(text))
     print("part 2 answer: ", part_two(text))
