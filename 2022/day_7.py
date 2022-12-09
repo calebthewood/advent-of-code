@@ -1,4 +1,4 @@
-from utils import file_to_list
+from utils import file_to_list, parse_file_name
 import math
 # Day 7: No Space Left On Device
 
@@ -58,17 +58,7 @@ def part_two(text):
 
     return f"{min_dir}: {min_size}"
 
-def parse_file_name(file_name):
-    """
-    Accepts a file name with or without extension, and returns
-    just the base text of the file name
-    foobar.txt >> foobar
-    """
-    output = ""
-    for char in file_name:
-        if char == ".": return output
-        output += char
-    return output
+
 
 
 with open("day_7_data.txt", "r") as f:
