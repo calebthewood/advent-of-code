@@ -10,7 +10,7 @@ This repo houses my solutions for the [Advent of Code](https://adventofcode.com/
 - [x] Day 4: Camp Cleanup
 - [x] Day 5: Supply Stacks
 - [x] Day 6: Tuning Trouble
-- [ ] Day 7: ???
+- [x] Day 7: No Space Left On Device
 - [ ] Day 8: ???
 - [ ] Day 9: ???
 - [ ] Day 10: ???
