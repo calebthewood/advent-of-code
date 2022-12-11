@@ -2,17 +2,17 @@ from utils import file_to_list
 import math
 # Grid will be 231 wide by 187 long
 # Guess #1: 8872 is too high
-# data = file_to_list("day_9_data.txt")
-data = [
-    "R 4",
-    "U 4",
-    "L 3",
-    "D 1",
-    "R 4",
-    "D 1",
-    "L 5",
-    "R 2"
-]
+data = file_to_list("day_9_data.txt")
+# data = [
+#     "R 4",
+#     "U 4",
+#     "L 3",
+#     "D 1",
+#     "R 4",
+#     "D 1",
+#     "L 5",
+#     "R 2"
+# ]
 
 def board_size(data):
     instructions = []
@@ -88,6 +88,7 @@ def model_rope(data):
             dist -= 1
 
             # Move Tail, while there's an x or y diff > 1
+            # needs
             x_diff = abs(H[0] - T[0])
             y_diff = abs(H[1] - T[1])
             if x_diff > 1 or y_diff > 1:
@@ -143,7 +144,7 @@ def model_rope(data):
     print("Tail: ", T)
     print("Start: ", S)
     print("Grid: ")
-    output = [" ".join(row) for row in grid]
+    output = ["".join(row) for row in grid]
     for row in output:
         print("ROW:  ", row)
     return first_time_visits
