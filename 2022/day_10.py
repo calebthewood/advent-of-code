@@ -32,7 +32,6 @@ def render_program(instructions):
     cycle = 0
     x = 1
     row = ""
-    count = 0
     print("inst len: ", len(instructions))
     for val in instructions:
         count += 1

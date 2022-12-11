@@ -1,123 +1,112 @@
 # Must be a better way to set up the monkey tests!
 
-def monkey_0_test(item, worry):
-    if worry % 2 == 0:
-        monkeys[4].items.append(item)
-    else:
-        monkeys[3].items.append(item)
-
-def monkey_1_test(item, worry):
-    if worry % 7 == 0:
-        monkeys[5].items.append(item)
-    else:
-        monkeys[6].items.append(item)
-
-def monkey_2_test(item, worry):
-    if worry % 3 == 0:
-        monkeys[7].items.append(item)
-    else:
-        monkeys[0].items.append(item)
-
-def monkey_3_test(item, worry):
-    if worry % 17 == 0:
-        monkeys[1].items.append(item)
-    else:
-        monkeys[5].items.append(item)
-
-def monkey_4_test(item, worry):
-    if worry % 11 == 0:
-        monkeys[3].items.append(item)
-    else:
-        monkeys[1].items.append(item)
-
-def monkey_5_test(item, worry):
-    if worry % 19 == 0:
-        monkeys[6].items.append(item)
-    else:
-        monkeys[2].items.append(item)
-
-def monkey_6_test(item, worry):
-    if worry % 5 == 0:
-        monkeys[2].items.append(item)
-    else:
-        monkeys[7].items.append(item)
-
-def monkey_7_test(item, worry):
-    if worry % 13 == 0:
-        monkeys[4].items.append(item)
-    else:
-        monkeys[0].items.append(item)
-
 def operation_0(old):
     return old * 5
+
 
 def operation_1(old):
     return old + 7
 
+
 def operation_2(old):
     return old + 5
+
 
 def operation_3(old):
     return old + 8
 
+
 def operation_4(old):
     return old + 4
+
 
 def operation_5(old):
     return old * 2
 
+
 def operation_6(old):
     return old * old
 
+
 def operation_7(old):
     return old + 6
+
+class Monkey:
+    """Rascal Monkeys"""
+    def __init__(self, id, items, operations, test):
+        """"Create triangle from a and b sides."""
+        self.id = id
+        self.items = items
+        self.operations = operations
+        self.test = test
+
+    def pass_item(self):
+        """Decide where to pass current item"""
+        print("Test Ran")
+        item = self.items.pop(0)
+        worry = _calculate_worry()
+        if worry % 2 == 0:
+            item_list = monkeys[monkey_a]["items"]
+        else:
+            item_list = monkeys[monkey_b]["items"]
+        item_list.append(item)
+
+    def _calculate_worry(self, worry, operation):
+        """How worried is the human?"""
+
+        return worry
+
+    def describe(self):
+        """Return description of area."""
+        return f"My area is {self.get_area()}"
 
 monkeys = [
     {
         "monkey": 0,
         "items": [80],
-        "operation": operation_0,
-        "test": monkey_0_test,
+        "operations": ["*",5],
+        "test": [7,5,6],
     },
     {
         "monkey": 1,
         "items": [75, 83, 74],
-        "operation": operation_1,
-        "test": monkey_1_test,
+        "operation": ["+",7],
+        "test": [7,5,6],
     },
     {
         "monkey": 2,
         "items": [86, 67, 61, 96, 52, 63, 73],
-        "operation": operation_2,
-        "test": monkey_2_test
+        "operation": ["+", 5],
+        "test": [3,7,0]
     },
     {
         "monkey": 3,
         "items": [85, 83, 55, 85, 57, 70, 85, 52],
-        "operation": operation_3,
-        "test": monkey_3_test,
+        "operation": ["+",8],
+        "test": [17,1,5],
     },
     {
         "monkey": 4,
         "items": [67, 75, 91, 72, 89],
-        "operation": operation_4,
-        "test": monkey_4_test,
+        "operation": ["+",4],
+        "test": [11,3,1],
     },
-    {"monkey": 5,
-     "items": [66, 64, 68, 92, 68, 77],
-     "operation": operation_5,
-     "test": monkey_5_test,
-     },
+    {
+        "monkey": 5,
+        "items": [66, 64, 68, 92, 68, 77],
+        "operation": ["*",2],
+        "test": [19,6,2],
+    },
     {
         "monkey": 6,
         "items": [97, 94, 79, 88],
-        "operation": operation_6,
-        "test": monkey_6_test,
+        "operation": ["**",2],
+        "test": [5,2,7],
     },
     {
         "monkey": 7,
         "items": [77, 85],
-        "operation": operation_7,
-        "test": monkey_7_test,
+        "operation": ["+",6],
+        "test": [13,4,0],
     }
 ]

@@ -13,8 +13,8 @@ This repo houses my solutions for the [Advent of Code](https://adventofcode.com/
 - [x] Day 7: No Space Left On Device
 - [x] Day 8: Treetop Tree House
 - [x] Day 9: Rope Bridge
-- [ ] Day 10: Cathode-Ray Tube
-- [ ] Day 11: ???
+- [x] Day 10: Cathode-Ray Tube
+- [ ] Day 11: Monkey in the Middle
 - [ ] Day 12: ???
 - [ ] Day 13: ???
 ...
