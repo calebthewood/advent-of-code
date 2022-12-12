@@ -1,20 +1,27 @@
 from day_11_data import monkeys
-import math
-
 
 # Day 11: Monkey in the Middle
+def print_list(msg, list):
+    print(msg)
+    for item in list: print("--> ",item)
 
 def run_round():
     for monkey in monkeys:
-        operation = monkey["operation"] # function
-        test = monkey["test"] # function
-        num = monkey["monkey"]
-        print("Monkey: ", monkey["items"])
-        while len(monkey["items"]) > 0:
-            # item = monkey["items"].pop(0)
-            # worry = operation(item)
-            # worry = math.floor(worry/3)
-            # test(item, worry)
-            print("Monkey #",num)
+        # print("Before: ",monkey)
+        while len(monkey.items) > 0:
+            monkey.pass_item()
+        # print("After: ",monkey)
 
-run_round()
+def monkey_business(monkeys):
+    for round in range(1,10001):
+        run_round()
+        if round % 1000 == 0:
+            print_list(f"Round: {round}",monkeys)
+
+    inspections = [m.inspections for m in monkeys]
+    inspections.sort()
+    inspections.reverse()
+    print("Inspections: ", inspections)
+    print("Monkey Business: ",inspections[0] * inspections[1])
+
+monkey_business(monkeys)
