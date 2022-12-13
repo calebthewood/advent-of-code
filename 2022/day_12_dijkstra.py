@@ -2,6 +2,7 @@ from utils import file_to_list
 import os
 from time import sleep
 
+
 class PriorityQueue:
     def __init__(self):
         self.values = []
@@ -33,7 +34,6 @@ class WeightedGraph:
         if v2 not in self.adjacency_list[v1]:
             self.adjacency_list[v1].append({"node": v2, "weight": weight})
 
-
     def _initialize_dijkstra(self, start):
         nodes = PriorityQueue()
         distances = {}
@@ -62,9 +62,10 @@ class WeightedGraph:
                     smallest = previous[smallest]
                 break
             if (smallest or distances[smallest]) != float('inf'):
-                for neighbor in range(0,len(self.adjacency_list[smallest])):
+                for neighbor in range(0, len(self.adjacency_list[smallest])):
                     next_node = self.adjacency_list[smallest][neighbor]
-                    prospect = float(distances[smallest]) + float(next_node["weight"])
+                    prospect = float(
+                        distances[smallest]) + float(next_node["weight"])
                     next_neighbor = next_node["node"]
                     if prospect < distances[next_neighbor]:
                         distances[next_neighbor] = prospect
@@ -86,7 +87,7 @@ def validate_elevation(x, y, nx, ny, grid):
         [5,5] "a", [5,6] "b" >> true
         [5,5] "a", [5,6] "g" >> false
     """
-    elevation = "ESabcdefghijklmnopqrstuvwxyz"
+    elevation = "SabcdefghijklmnopqrstuvwxyzE"
     vertical_limit = 1
     current_elev = elevation.index(grid[y][x]) + vertical_limit
     new_elev = elevation.index(grid[ny][nx])
@@ -118,7 +119,7 @@ def grid_to_graph(grid):
         for x in range(0, x_bound):
             vertex_a = f"{x}-{y}"
             graph.add_vertex(vertex_a)
-    #Add Edges
+    # Add Edges
     for y in range(0, y_bound):
         for x in range(0, x_bound):
             vertex_a = f"{x}-{y}"
@@ -128,16 +129,18 @@ def grid_to_graph(grid):
 
     return graph
 
+
 def find_start_end(grid):
     x_bound = len(grid[0])
     y_bound = len(grid)
     for y in range(0, y_bound):
         for x in range(0, x_bound):
             if grid[y][x] == "S":
-                 start = f"{x}-{y}"
+                start = f"{x}-{y}"
             if grid[y][x] == "E":
-                 end = f"{x}-{y}"
+                end = f"{x}-{y}"
     return [start, end]
+
 
 def print_path_map(path, grid):
     path_map = []
@@ -162,12 +165,51 @@ def print_path_map(path, grid):
         print(f"<-- Steps: {len(path)-1} -->")
 
 
-def part_one():
-    grid = file_to_list("day_12_data.txt")
+def part_one(grid):
     graph = grid_to_graph(grid)
     [start, end] = find_start_end(grid)
-    path = graph.dijkstras_path(start,end)
+    path = graph.dijkstras_path(start, end)
 
     print_path_map(path, grid)
 
-part_one()
+
+def find_all_char_in_grid(char, grid):
+    x_bound = len(grid[0])
+    y_bound = len(grid)
+    starts = []
+    for y in range(0, y_bound):
+        for x in range(0, x_bound):
+            if grid[y][x] == char:
+                start = f"{x}-{y}"
+                starts.append(start)
+            if grid[y][x] == "E":
+                end = f"{x}-{y}"
+    return [starts, end]
+
+
+
+def part_two(grid):
+    graph = grid_to_graph(grid)
+    [start, end] = find_start_end(grid)
+    path = graph.dijkstras_path(start, end)
+
+    total_steps = len(path)
+
+    for step in range(0,total_steps):
+        coords = path[step].split("-")
+        x = int(coords[0])
+        y = int(coords[1])
+        char = grid[y][x]
+        if char == 'b':
+            return total_steps - step
+
+    return "oops"
+    # 459 correct guess!
+    # print_path_map(path, grid)
+
+
+test_grid = ["Sabqponm","abcryxxl","accszExk","acctuvwj","abdefghi"]
+grid = file_to_list("day_12_data.txt")
+
+part_one(grid)
+# print(part_two(grid))
