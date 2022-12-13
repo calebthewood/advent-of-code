@@ -1,5 +1,6 @@
 from utils import file_to_list
-
+import os
+from time import sleep
 
 class PriorityQueue:
     def __init__(self):
@@ -11,12 +12,12 @@ class PriorityQueue:
             "priority": priority
         }
         self.values.append(node)
-        self.values.sort()
+        self.pq_sort()
 
     def dequeue(self):
         return self.values.pop(0)
 
-    def sort(self):
+    def pq_sort(self):
         self.values.sort(key=lambda x: x["priority"])
 
 
@@ -25,12 +26,13 @@ class WeightedGraph:
         self.adjacency_list = {}
 
     def add_vertex(self, vertex):
-        if not self.adjacencyList[vertex]:
-            self.adjacencyList[vertex] = []
+        if vertex not in self.adjacency_list:
+            self.adjacency_list[vertex] = []
 
     def add_edge(self, v1, v2, weight):
-        self.adjacency_list[v1].append({"node": v2, "weight": weight})
-        self.adjacency_list[v2].append({"node": v1, "weight": weight})
+        if v2 not in self.adjacency_list[v1]:
+            self.adjacency_list[v1].append({"node": v2, "weight": weight})
+
 
     def _initialize_dijkstra(self, start):
         nodes = PriorityQueue()
@@ -52,30 +54,32 @@ class WeightedGraph:
         [distances, nodes, previous] = self._initialize_dijkstra(start)
         path = []
 
-        while len(nodes["values"]):
-            smallest = nodes.dequeue().val
+        while len(nodes.values):
+            smallest = nodes.dequeue()["val"]
             if smallest == end:
                 while previous[smallest]:
                     path.append(smallest)
                     smallest = previous[smallest]
                 break
-
-            if smallest or distances[smallest] != float('inf'):
-                for neighbor in self.adjacency_list[smallest]:
+            if (smallest or distances[smallest]) != float('inf'):
+                for neighbor in range(0,len(self.adjacency_list[smallest])):
                     next_node = self.adjacency_list[smallest][neighbor]
-                    prospect = distances[smallest] + next_node["weight"]
-                    next_neighbor = next_node.node
+                    prospect = float(distances[smallest]) + float(next_node["weight"])
+                    next_neighbor = next_node["node"]
                     if prospect < distances[next_neighbor]:
                         distances[next_neighbor] = prospect
                         previous[next_neighbor] = smallest
-                        nodes.enqueue(next_neighbor, prospect)
+                        nodes.enqueu(next_neighbor, prospect)
 
-        path.extend(smallest)
+        if isinstance(smallest, list):
+            path.extend(smallest)
+        else:
+            path.append(smallest)
         path.reverse()
-        return len(path)
+        return path
 
 
-def validate_elevation(x, y, nx, ny, new, grid):
+def validate_elevation(x, y, nx, ny, grid):
     """
     Determines whether it's possible to travel between 2 cells on the grid
     with a vertical limit of 1.
@@ -86,10 +90,11 @@ def validate_elevation(x, y, nx, ny, new, grid):
     vertical_limit = 1
     current_elev = elevation.index(grid[y][x]) + vertical_limit
     new_elev = elevation.index(grid[ny][nx])
+    # print("ELEVATION: ",new_elev <= current_elev)
     return new_elev <= current_elev
 
 
-def get_adjacency_list(x, y):
+def get_adjacency_list(x, y, grid):
     """Checks NWSE move options for elevation and proximity to end"""
     nwse = [[x, y-1], [x-1, y], [x, y+1], [x+1, y]]
     adjacency_list = []
@@ -98,10 +103,9 @@ def get_adjacency_list(x, y):
 
     for [nx, ny] in nwse:
         if (0 <= nx < x_bound) and (0 <= ny < y_bound):
-            if validate_elevation(x, y, nx, ny):
+            if validate_elevation(x, y, nx, ny, grid):
                 vertex = f"{nx}-{ny}"
                 adjacency_list.append(vertex)
-
     return adjacency_list
 
 
@@ -109,12 +113,15 @@ def grid_to_graph(grid):
     graph = WeightedGraph()
     x_bound = len(grid[0])
     y_bound = len(grid)
-
+    # Add Vertices
     for y in range(0, y_bound):
         for x in range(0, x_bound):
-            elevation = grid[y][x]
             vertex_a = f"{x}-{y}"
-            graph.add_vertex(vertex)
+            graph.add_vertex(vertex_a)
+    #Add Edges
+    for y in range(0, y_bound):
+        for x in range(0, x_bound):
+            vertex_a = f"{x}-{y}"
             adjacency_list = get_adjacency_list(x, y, grid)
             for vertex_b in adjacency_list:
                 graph.add_edge(vertex_a, vertex_b, 1)
@@ -132,12 +139,35 @@ def find_start_end(grid):
                  end = f"{x}-{y}"
     return [start, end]
 
+def print_path_map(path, grid):
+    path_map = []
+
+    for col in grid:
+        row = []
+        for cell in col:
+            row.append(cell)
+        path_map.append(row)
+
+    for node in path:
+        coords = node.split("-")
+        x = int(coords[0])
+        y = int(coords[1])
+        path_map[y][x] = "."
+
+        sleep(.02)
+        os.system('clear')
+
+        for row in path_map:
+            print("".join(row))
+        print(f"<-- Steps: {len(path)-1} -->")
+
 
 def part_one():
     grid = file_to_list("day_12_data.txt")
     graph = grid_to_graph(grid)
     [start, end] = find_start_end(grid)
+    path = graph.dijkstras_path(start,end)
 
-    print(graph.dijkstras_path(start,end))
+    print_path_map(path, grid)
 
 part_one()

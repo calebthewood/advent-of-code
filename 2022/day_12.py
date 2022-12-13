@@ -49,7 +49,7 @@ def calculate_proximity(new, end):
     one valid NWSE directional choice exists.
     """
     y_diff = abs(new[1] - end[1])
-    x_diff = abs(new[0]  - end[0])
+    x_diff = abs(new[0] - end[0])
     return y_diff + x_diff
 
 
@@ -61,15 +61,15 @@ def survey_move_options(current, end):
 
     for coords in nwse:
         if validate_coordinates(coords):
-            if validate_elevation([x,y], coords):
+            if validate_elevation([x, y], coords):
                 prox = calculate_proximity(coords, end)
                 [nx, ny] = coords
                 move_options.append([nx, ny, prox])
 
+    ordered_moves = order_by_priority(move_options)
+    return ordered_moves
 
-    return move_options
 
-#function like this one has a lot of room for improvement.
 def order_by_priority(moves):
     """
     Orders the valid moves list in terms of priority from lowest to highest
@@ -80,11 +80,11 @@ def order_by_priority(moves):
     while len(moves) > 0:
         max = 0
         for i in range(0, len(moves)):
-            if moves[i][2] > moves[min][2]:
+            if moves[i][2] > moves[max][2]:
                 max = i
         move = moves.pop(max)
         ordered_moves.append(move)
-    return
+    return ordered_moves
 
 
 def reached_destination(coords):
@@ -118,11 +118,10 @@ def print_path_map(visited, steps):
 def part_one():
     steps = 0
     coords = find_char("S")
-    start = [coords[0],coords[1],-1]
+    start = [coords[0], coords[1], -1]
     end = find_char("E")
     visited = []
     to_visit = [start]
-    # while not reached_destination(coords):
 
     while len(to_visit) > 0:
         steps += 1
@@ -139,5 +138,6 @@ def part_one():
             return "fin!"
 
     return "Looks like I'm lost!"
+
 
 print(part_one())
